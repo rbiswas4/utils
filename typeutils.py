@@ -38,7 +38,7 @@ def hasanyattrs (object ,returnlist = False):
 
 	hasanyattrs = False 
 	lst = object.attrs.items()
-	if len(lst) !=0
+	if len(lst) !=0:
 		hasanyattrs = True 
 
 	return (hasanyattrs , lst )
