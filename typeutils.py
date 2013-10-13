@@ -19,3 +19,26 @@ def isiterable ( var ) :
 	"""
 	return isinstance(var , collections.Iterable)
 
+def hasanyattrs (object ,returnlist = False):
+
+	"""
+	Checks if the object has any attributes (rather than a particular 
+	attribute as implemented in python 2.7.5 function hasattr ) 
+
+	args: 
+		object : name of object 
+
+	returns: 
+		tuple, ( Bool, listof attributes) 
+	example usage:
+		
+	status: 
+		
+	"""
+
+	hasanyattrs = False 
+	lst = object.attrs.items()
+	if len(lst) !=0
+		hasanyattrs = True 
+
+	return (hasanyattrs , lst )
