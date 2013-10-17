@@ -11,8 +11,9 @@ def isiterable ( var ) :
 	returns : bool 
 		True if iterable, False otherwise
 	example_usage:
-		if io.isiterable(k) :	
-			k = np.asarray(k)
+		>>> if io.isiterable(k) :	
+		>>>	k = np.asarray(k)
+
 	status:
 		tested, and works. 
 		R. Biswas, Wed Oct  9 11:05:12 CDT 2013
@@ -31,8 +32,12 @@ def hasanyattrs (object ,returnlist = False):
 	returns: 
 		tuple, ( Bool, listof attributes) 
 	example usage:
+		>>> import typeutils as tu 
+		>>> print tu.hasanyattrs(o ,True)
 		
 	status: 
+		Tested and found to work as expected, 
+		R. Biswas, Sun Oct 13 17:01:45 CDT 2013
 		
 	"""
 
