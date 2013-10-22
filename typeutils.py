@@ -2,6 +2,42 @@
 
 import collections
 
+def findtype(s, makeintfloats = False):
+
+	"""
+	Return a tuple with the data type of the string along with 
+	the string converted to the data type.
+
+	args:
+		s : mandatory, string
+	returns:
+		tuple: (type, sprime)
+			type is either int, float or str
+			sprime is the quantaty s converted into its type.
+	example usage:
+		t, s = findtype(s) 
+	status:
+		seems to be working,
+		R. Biswas, Sun Mar 24 21:40:53 CDT 2013
+		Copied from ioutilst as is
+		R. Biswas, Tue Oct 22 14:47:48 CDT 2013
+		 
+	"""
+	try:
+		int(s)
+		if makeintfloats:
+			return 'f4', float(s)
+		else:
+			return 'i8' , int(s) 
+	except ValueError:
+		pass
+	try:
+		float(s)
+		return 'f4' , float(s) 
+	except ValueError:
+		pass
+ 
+	return "a20", s
 def isiterable ( var ) :
 	"""
 	returns True if var is an iterable quantity, False otherwise
