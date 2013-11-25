@@ -1,6 +1,38 @@
 #!/usr/bin/env python
 
 import collections
+import numpy 
+def greaterarray( a1 , a2 ) :
+
+	"""
+	Given two arrays a1 and a2 of equal length, return an array with the 
+	ith element of a1 if a1[i] > a2[i] and a2[i] otherwise. 
+
+	"""
+
+	if not isiterable (a1) :
+
+		if isiterable(a2) :
+
+			raise ValueError("a2 is array, and a1 is scalar")
+
+		if a1 > a2 :
+			return a1, 0 
+		else:
+			return a2, -1 
+
+	else:
+		if not isiterable(a2) :
+			raise ValueError("a1 is array, and a2 is scalar")
+	
+		if len(a2) == len(a1) :
+			res = np.zeros(len(a1))
+			for i in range(len(a1)):
+				if a1[i] > a2[i] :
+					res[i] = 0
+				else :
+					res [i] = -1
+			return np.fmax(a1,a2), res  
 
 def findtype(s, makeintfloats = False):
 
