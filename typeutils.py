@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 
 import collections
-import numpy 
-def greaterarray( a1 , a2 ) :
+import numpy as np
+def greaterarray( a1 , a2 ,a1val =None, a2val = None) :
 
 	"""
 	Given two arrays a1 and a2 of equal length, return an array with the 
 	ith element of a1 if a1[i] > a2[i] and a2[i] otherwise. 
 
 	"""
+	if a1val ==None:
+		a1val = 0 
+
+	if a2val == None:
+		a2val = -1
 
 	if not isiterable (a1) :
 
@@ -29,9 +34,9 @@ def greaterarray( a1 , a2 ) :
 			res = np.zeros(len(a1))
 			for i in range(len(a1)):
 				if a1[i] > a2[i] :
-					res[i] = 0
+					res[i] = a1val 
 				else :
-					res [i] = -1
+					res [i] = a2val 
 			return np.fmax(a1,a2), res  
 
 def findtype(s, makeintfloats = False):
