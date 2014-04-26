@@ -2,6 +2,7 @@
 
 import collections
 import numpy as np
+
 def greaterarray( a1 , a2 ,a1val =None, a2val = None) :
 
 	"""
@@ -84,8 +85,8 @@ def isiterable ( var ) :
 	returns : bool 
 		True if iterable, False otherwise
 	example_usage:
-		>>> if io.isiterable(k) :	
-		>>>	k = np.asarray(k)
+		>>> if isiterable(k) :	
+		>>> k = np.asarray(k)
 
 	status:
 		tested, and works. 
