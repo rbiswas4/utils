@@ -1,9 +1,93 @@
 #!/usr/bin/env python
 
+"""
+module to help in plotting. 
+Functions: 
+	inputExplorer: slider functionality to help in exploring functions
+	drawxband    : drawing shaded regions of specific width around a value, 
+		helpful in ratio/residual plots
+	settwopanel  : returns a figure and axes for two subplots to show the
+		functional form and differentials of the function with reference
+		to a fiducial set of values. 
+"""
 import typeutils  as tu
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+from matplotlib.widgets import Slider, Button
+
+def inputExplorer(f, sliders_properties, wait_for_validation = False):
+	""" A light GUI to manually explore and tune the outputs of a function.
+	taken from http://zulko.wordpress.com/2012/08/18/a-gui-for-the-exploration-of-functions-with-python-matplotlib/
+
+
+	args:
+		f : callable function to return values (for text outputs) or 
+			plot figure. For graphics, it should clear an axes ax
+			and plot the function with its parameter values on 
+			the figure.
+			Example: def func(a) :
+					ax.clear()
+					ax.plot( x, np.sin(a*x)
+					fig.canvas.draw()
+			
+		slider_properties: list of dicts
+			arguments for Slider: each element of the list should be 			be a dict with keys "label", "valmax", "valmin" with
+			string, float, float values respectively. There should 
+			be a dict corresponding to each variable to vary in the 
+			slider. 
+			Example: [{"label":"a", "valmax" :2.0, "valmin":-2.0}]
+		 
+		status: 
+			tested , R. Biswas, Tue Apr 29 10:43:07 CDT 2014
+		example_usage:
+		>>> x = np.arange(0,10,0.1)
+		>>> fig, ax = plt.subplots(1)
+		>>> def func (a , doclear = True) :
+		>>>	if doclear:
+		>>>		ax.clear()
+		>>> 	ax.plot( x, np.sin(a*x) )
+		>>>	fig.canvas.draw()
+
+		>>> inputExplorer ( func, [{'label':'a', 'valmin' : -1, 'valmax' : 1}])
+	
+
+	"""
+	nVars = len(sliders_properties)
+	slider_width = 1.0/nVars
+	print slider_width
+	# CREATE THE CANVAS
+	figure,ax = plt.subplots(1)
+	figure.canvas.set_window_title( "Inputs for '%s'"%(f.func_name) )
+	# choose an appropriate height
+	width,height = figure.get_size_inches()
+	height = min(0.5*nVars,8)
+	figure.set_size_inches(width,height,forward = True)
+	# hide the axis
+	ax.set_frame_on(False)
+	ax.get_xaxis().set_visible(False)
+	ax.get_yaxis().set_visible(False)
+	# CREATE THE SLIDERS
+	sliders = []
+	for i, properties in enumerate(sliders_properties):
+		ax = plt.axes([0.1 , 0.95-0.9*(i+1)*slider_width,
+					   0.8 , 0.8* slider_width])
+		sliders.append( Slider(ax=ax, **properties) )
+	# CREATE THE CALLBACK FUNCTIONS
+	def on_changed(event) : 
+		res = f(*(s.val for s in sliders))
+		if res is not None:
+			print res
+	def on_key_press(event):
+		if event.key is 'enter':
+			on_changed(event)   
+	figure.canvas.mpl_connect('key_press_event', on_key_press)
+	# AUTOMATIC UPDATE ?
+	if not wait_for_validation:
+		for s in sliders :
+			s.on_changed(on_changed)
+	# DISPLAY THE SLIDERS
+	plt.show()
 
 
 def drawxband(refval , 
@@ -157,6 +241,14 @@ if __name__ == "__main__":
 	x = np.arange(0,10,0.1)
 	y = x * x
 
+	fig, ax = plt.subplots(1)
+	def func (a , doclear = True) :
+		if doclear:
+			ax.clear()
+		ax.plot( x, np.sin(a*x) )
+		fig.canvas.draw()
+
+	inputExplorer ( func, [{'label':'a', 'valmin' : -1, 'valmax' : 1}])
 	
 	myfig,  myax0 , myax1 = settwopanel ( )
 
@@ -172,3 +264,4 @@ if __name__ == "__main__":
 	
 	
 	plt.show()
+	
