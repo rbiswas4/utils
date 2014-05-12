@@ -21,10 +21,10 @@ def frequencyofints(a ) :
 		>>> val, freq =  su.frequencyofints(z) 
 	"""
 	x  = np.bincount(a) 
-	y  = np.nonzero(x) [0]
+	vals  = np.nonzero(x) [0]
 
-	vals = x[y]
-	return vals, y 
+	freq = x[y]
+	return vals, freq 
 def findcommonsortedLists(A ,  B , 
 	commononly= True, 
 	inAnotB =None, 
