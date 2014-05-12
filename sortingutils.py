@@ -2,13 +2,19 @@
 import numpy as np
 
 
-def frequencyofints(a ) :
+def frequencyofints(a ,memeff = True) :
 	
 	"""
 	find the frequency of integers in an integer array a
 
 	args:
 		a : integer array, mandatory
+		memeff: bool, optional, defaults to True
+			uses a naive but memory efficient 
+			method where the bottleneck step is a 
+			sort algorithm (np.sort), so in principle 
+			is O N ln(N), and is memory efficient for 
+			arrays of large integers
 	returns:
 		tuple (vals, freq ) where vals are unique integers
 		in the array a, and freq is a tuple of frequencies with 
@@ -20,10 +26,29 @@ def frequencyofints(a ) :
 		>>> z = np.array([1,3,4,2,5,2,3])
 		>>> val, freq =  su.frequencyofints(z) 
 	"""
-	x  = np.bincount(a) 
-	vals  = np.nonzero(x) [0]
+	if memeff :
+		a.sort()
+		#get unique list of values:
+		u = np.unique(a) 
 
-	freq = x[vals]
+		print a
+		freq = np.zeros(len(u), dtype =  int) 
+		print freq
+		j = 0 
+		for i,ue in enumerate(u) :
+			print i , j 
+			while u[i] == a[j] :
+				freq[i] += 1
+				if j == len(a) - 1:
+					break
+				j += 1 
+		return u , freq			
+		
+	else:
+		x  = np.bincount(a) 
+		vals  = np.nonzero(x) [0]
+		freq = x[vals]
+
 	return vals, freq 
 def findcommonsortedLists(A ,  B , 
 	commononly= True, 
