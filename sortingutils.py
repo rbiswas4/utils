@@ -23,7 +23,7 @@ def frequencyofints(a ) :
 	x  = np.bincount(a) 
 	vals  = np.nonzero(x) [0]
 
-	freq = x[y]
+	freq = x[vals]
 	return vals, freq 
 def findcommonsortedLists(A ,  B , 
 	commononly= True, 
