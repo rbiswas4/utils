@@ -31,12 +31,9 @@ def frequencyofints(a ,memeff = True) :
 		#get unique list of values:
 		u = np.unique(a) 
 
-		print a
 		freq = np.zeros(len(u), dtype =  int) 
-		print freq
 		j = 0 
 		for i,ue in enumerate(u) :
-			print i , j 
 			while u[i] == a[j] :
 				freq[i] += 1
 				if j == len(a) - 1:
