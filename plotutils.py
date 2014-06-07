@@ -265,3 +265,13 @@ if __name__ == "__main__":
 	
 	plt.show()
 	
+def threepanel ( ) :
+	
+	fig = plt.figure()
+	gs  = gridspec.GridSpec(3,1, height_ratios=[0.33,0.33,0.33], width_ratios=[1.,0.,0.])
+	ax0 = plt.subplot(gs[0])
+	ax1 = plt.subplot(gs[1])
+	ax2 = plt.subplot(gs[2])
+
+
+	return gs, fig, ax0 , ax1, ax2 
